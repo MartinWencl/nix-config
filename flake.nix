@@ -16,13 +16,18 @@
       nixosConfigurations = {
         nixos = lib.nixosSystem {
           inherit system;
-	  modules = [./configuration.nix];
+          modules = [./configuration.nix];
         };
       };
+
       homeConfigurations = {
         martinw = home-manager.lib.homeManagerConfiguration {
-	  inherit pkgs;
-	  modules = [./home.nix];
+            inherit pkgs;
+            modules = [./home.nix];
+        }; 
+        ubuntuWsl = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [./home.nix ./wsl-config.nix];
         };
     };
   };  

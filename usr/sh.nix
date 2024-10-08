@@ -3,7 +3,7 @@
 let
   myAliases = {
     ls = "eza --group-directories-first --icons";
-    la = "eza --group-directories-f.irst -la --icons";
+    la = "eza --group-directories-first -la --icons";
     s = "eza --group-directories-first --icons";
     gl = "git log --all --decorate --graph";
     n = "nvim";
