@@ -7,6 +7,7 @@
     neovide
     lua-language-server
     nil
+    stylua
   ];
   programs.neovim = {
     viAlias = true;

@@ -1,46 +1,36 @@
 return {
-    -- https://github.com/jackMort/ChatGPT.nvim
-    -- {
-    --     "jackMort/ChatGPT.nvim",
-    --     dependencies = {
-    --         { "MunifTanjim/nui.nvim" },
-    --         { "nvim-lua/plenary.nvim" },
-    --         { "nvim-telescope/telescope.nvim" },
-    --     },
-    --     -- event = "VeryLazy",
-    --     config = function()
-    --         require("chatgpt").setup({
-    --             api_key_cmd = "/home/martinw/.config/nvim/secret.sh",
-    --             actions_paths = {},
-    --             openai_params = {
-    --                 model = "gpt-4o",
-    --                 max_tokens = 4000,
-    --             },
-    --             openai_edit_params = {
-    --                 model = "gpt-4o",
-    --                 max_tokens = 4000,
-    --                 temperature = 0,
-    --                 top_p = 1,
-    --                 n = 1,
-    --             },
-    --         })
-    --     end,
-    -- },
-
     {
-    -- help:
-    -- /modellist
-    -- /model  <model name from model list>
-    -- /replace <number from code suggestion>
-    -- exit with CTRL+C
-        "dustinblackman/oatmeal.nvim",
-        cmd = { "Oatmeal" },
-        keys = {
-            { "<leader>om", mode = "n", desc = "Start Oatmeal session" },
-        },
-        opts = {
-            backend = "ollama",
-            model = "codellama:latest",
-        },
+        "robitx/gp.nvim",
+        config = function()
+            local conf = {
+                openai = {
+                    endpoint = "https://api.openai.com/v1/chat/completions",
+                    secret = { "cat", "/home/martinw/.dotfiles/secret.txt" },
+                },
+                agents = {
+                    {
+                        name = "ChatGPT4o",
+                        chat = true,
+                        command = false,
+                        model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+                        system_prompt = "",
+                    },
+                },
+                hooks = {
+                    UnitTests = function(gp, params)
+                        local template = "I have the following code from {{filename}}:\n\n"
+                            .. "```{{filetype}}\n{{selection}}\n```\n\n"
+                            .. "Please respond by writing table driven unit tests for the code above."
+                        local agent = gp.get_command_agent()
+                        gp.Prompt(params, gp.Target.enew, agent, template)
+                    end,
+                },
+            }
+            require("gp").setup(conf)
+
+            vim.keymap.set({"n", "v"}, "<leader>ar", "<Cmd>GpRewrite<CR>")
+            vim.keymap.set("n", "<leader><leader>a", "<Cmd>GpRewrite<CR>")
+            vim.keymap.set({"n", "v"}, "<leader>arb", "<Cmd>%GpRewrite<CR>")
+        end,
     },
 }
