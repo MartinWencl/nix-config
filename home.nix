@@ -40,6 +40,8 @@
     alacritty
     rustup
     fzf
+    yazi
+    kitty
   ];
 
   nix = {
