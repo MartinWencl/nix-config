@@ -11,6 +11,12 @@
     ./usr/tmux.nix
     ./usr/rofi.nix
     ./usr/awesome/awesome.nix
+    ./usr/hyprland/hypr.nix
+    ./usr/waybar/waybar.nix
+    ./usr/kitty/kitty.nix
+    ./usr/wofi/wofi.nix
+    ./usr/hyprpaper/hyprpaper.nix
+    ./usr/qutebrowser/quteb.nix
   ];
 
   home.username = "martinw";
@@ -42,7 +48,16 @@
     fzf
     yazi
     kitty
+    waybar
+    swww
+    zathura
+    xfce.thunar
   ];
+
+  xsession.enable = true;
+  # xsession.windowManager.command = "hyprland";
+  xsession.windowManager.awesome.enable = true;
+  
 
   nix = {
     package = pkgs.nix;

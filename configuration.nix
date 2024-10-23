@@ -2,18 +2,17 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # ./hyprland.nix
     ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.enable = true;
 
   environment.shells = with pkgs; [ bash zsh ];
   users.defaultUserShell = pkgs.zsh;
@@ -54,15 +53,14 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # enable the AwesomeWM
+  # enable WMs
   services.xserver.windowManager.awesome.enable = true;
 
+  programs.hyprland.enable = true;
+  # programs.hyprland.package = inputs.hyprland.package."${pkgs.system}".hyrpland;
+
   # Enable the sddm display manager
-  services.displayManager.sddm = {
-    enable = true;
-    theme = "catppuccin-mocha";
-    package = pkgs.kdePackages.sddm;
-  };
+  services.displayManager.sddm.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -89,23 +87,16 @@
     #media-session.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.martinw = {
     isNormalUser = true;
     description = "Martin Wencl";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim
     wget
     git
     zip
@@ -113,8 +104,8 @@
     curl
     vscode
     firefox
-    sddm-cattpuccin
 ];
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
