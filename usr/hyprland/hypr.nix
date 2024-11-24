@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     waybar
     dunst
+    hyprcursor
   ];
 
   wayland.windowManager.hyprland = {
@@ -37,6 +38,16 @@
 
       "$mod, mouse_down, workspace, e+1"
       "$mod, mouse_up, workspace, e-1"
+
+      "$mod, Left, movefocus, l # [hidden]"
+      "$mod, Right, movefocus, r # [hidden]"
+      "$mod, Up, movefocus, u # [hidden]"
+      "$mod, Down, movefocus, d # [hidden]"
+      "$mod, BracketLeft, movefocus, l # [hidden]"
+      "$mod, BracketRight, movefocus, r # [hidden]"
+      # "$mod, mouse:272, movewindow"
+      # "$mod, mouse:273, resizewindow"
+      "$mod, F, fullscreen"
 
       # Move/resize windows with mainMod + LMB/RMB and dragging
       # "$mod, mouse:272, movewindow"
@@ -77,6 +88,7 @@
     # "$color13" = "rgba(7BC7DDee)"
     # "$color14" = "rgba(9CB4E3ee)"
     # "$color15" = "rgba(c3dde7ee)"
+    env = "HYPRCURSOR_THEME,BreezeX-RosePine-Linux";
 
   };
 }

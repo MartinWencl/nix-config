@@ -2,13 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, systemSettings, userSettings, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # ./hyprland.nix
     ];
 
   # Bootloader.
@@ -18,7 +17,7 @@
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = systemSettings.hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -28,26 +27,20 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  #TODO: Move into a separate bluetooth module
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  services.blueman.enable = true;
+
   # Set your time zone.
-  time.timeZone = "Europe/Prague";
+  time.timeZone = systemSettings.timezone;
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "cs_CZ.UTF-8";
-    LC_IDENTIFICATION = "cs_CZ.UTF-8";
-    LC_MEASUREMENT = "cs_CZ.UTF-8";
-    LC_MONETARY = "cs_CZ.UTF-8";
-    LC_NAME = "cs_CZ.UTF-8";
-    LC_NUMERIC = "cs_CZ.UTF-8";
-    LC_PAPER = "cs_CZ.UTF-8";
-    LC_TELEPHONE = "cs_CZ.UTF-8";
-    LC_TIME = "cs_CZ.UTF-8";
-  };
+  i18n.defaultLocale = systemSettings.defaultLocale;
+  i18n.extraLocaleSettings = systemSettings.extraLocaleSettings;
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = ["JetBrainsMono"]; })
+    (nerdfonts.override { fonts = [userSettings.font]; })
   ];
 
   # Enable the X11 windowing system.
@@ -63,10 +56,10 @@
   services.displayManager.sddm.enable = true;
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  # services.xserver.xkb = {
+  #   layout = "us";
+  #   variant = "";
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -87,25 +80,38 @@
     #media-session.enable = true;
   };
 
-  users.users.martinw = {
+  users.users.${userSettings.username} = {
     isNormalUser = true;
-    description = "Martin Wencl";
+    description = userSettings.name;
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-    neovim
-    wget
-    git
-    zip
-    unzip
-    curl
-    vscode
-    firefox
+  environment.systemPackages = [
+    pkgs.neovim
+    pkgs.wget
+    pkgs.git
+    pkgs.zip
+    pkgs.unzip
+    pkgs.curl
 ];
 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    # Add any missing dynamic libraries for unpackaged programs
+    # here, NOT in environment.systemPackages
+    xorg.libX11
+    xorg.libX11.dev
+  ];
+
+  #TODO: Move into a separate "gaming" section, so it can be separated out of a work profile
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -126,12 +132,6 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 
   nix.settings.experimental-features = ["nix-command" "flakes"];

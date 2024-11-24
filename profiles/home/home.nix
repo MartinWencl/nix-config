@@ -1,22 +1,22 @@
-{ config, pkgs, ... }:
+{ config, pkgs, userSettings,... }:
 
 {
   imports = [
-    ./usr/sh.nix
-    ./usr/alacritty/alacritty.nix
-    ./usr/starship.nix
-    ./usr/nvim/nvim.nix
-    ./usr/autin.nix
-    ./usr/zoxide.nix
-    ./usr/tmux.nix
-    ./usr/rofi.nix
-    ./usr/awesome/awesome.nix
-    ./usr/hyprland/hypr.nix
-    ./usr/waybar/waybar.nix
-    ./usr/kitty/kitty.nix
-    ./usr/wofi/wofi.nix
-    ./usr/hyprpaper/hyprpaper.nix
-    ./usr/qutebrowser/quteb.nix
+    ../../usr/sh.nix
+    ../../usr/alacritty/alacritty.nix
+    ../../usr/starship.nix
+    ../../usr/nvim/nvim.nix
+    ../../usr/autin.nix
+    ../../usr/zoxide.nix
+    ../../usr/tmux.nix
+    ../../usr/rofi.nix
+    ../../usr/awesome/awesome.nix
+    ../../usr/hyprland/hypr.nix
+    ../../usr/waybar/waybar.nix
+    ../../usr/kitty/kitty.nix
+    ../../usr/wofi/wofi.nix
+    ../../usr/hyprpaper/hyprpaper.nix
+    ../../usr/qutebrowser/quteb.nix
   ];
 
   home.username = "martinw";
@@ -48,10 +48,19 @@
     fzf
     yazi
     kitty
-    waybar
     swww
     zathura
     xfce.thunar
+    steam
+    wl-clipboard
+    firefox
+    pwvucontrol
+    python3
+
+    libcef
+
+    #TODO: Move to "gaming" profile
+    prismlauncher
   ];
 
   xsession.enable = true;
@@ -65,8 +74,8 @@
   };
 
   home.sessionVariables = {
-     EDITOR = "nvim";
-     TERM = "alacritty";
+     EDITOR = userSettings.editor;
+     TERM = userSettings.term;
   };
 
   programs.home-manager.enable = true;
