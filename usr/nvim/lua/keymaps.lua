@@ -39,12 +39,3 @@ vim.keymap.set(
 
 -- Change the crazy default terminal escape keymap to esc
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>", { silent = true })
-
--- File management keybindings
-vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
-
--- Turn off arrow keys in normal and insert mode
--- vim.keymap.set({"n", "i"}, "<left>", "")
--- vim.keymap.set({"n", "i"}, "<right>", "")
--- vim.keymap.set({"n", "i"}, "<up>", "")
--- vim.keymap.set({"n", "i"}, "<down>", "")

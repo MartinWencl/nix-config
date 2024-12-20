@@ -1,23 +1,20 @@
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        -- Automatically install LSPs to stdpath for neovim
+        -- Completion 
+        'saghen/blink.cmp',
+
+        -- Mason
         { "williamboman/mason.nvim", config = true },
         "williamboman/mason-lspconfig.nvim",
+
 
         -- Useful status updates for LSP
         { "j-hui/fidget.nvim", opts = {} },
     },
     config = function()
-        -- [[ Configure LSP ]]
         --  This function gets run when an LSP connects to a particular buffer.
         local on_attach = function(_, bufnr)
-            -- NOTE222: Remember that lua is a real programming language, and as such it is possible
-            -- to define small helper and utility functions so you don"t have to repeat yourself
-            -- many times.
-            --
-            -- In this case, we create a function that lets us more easily define mappings specific
-            -- for LSP related items. It sets the mode, buffer and description for us each time.
             local nmap = function(keys, func, desc)
                 if desc then
                     desc = "LSP: " .. desc
@@ -50,65 +47,39 @@ return {
             -- end, "[W]orkspace [L]ist Folders")
         end
 
-        -- document existing key chains
-        require("which-key").register({
-            ["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-            ["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-            ["<leader>g"] = { name = "[G]it", _ = "which_key_ignore" },
-            -- ["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
-        })
-
-        -- register which-key VISUAL mode
-        -- required for visual <leader>hs (hunk stage) to work
-        require("which-key").register({
-            ["<leader>"] = { name = "VISUAL <leader>" },
-            ["<leader>h"] = { "Git [H]unk" },
-        }, { mode = "v" })
-
-        -- mason-lspconfig requires that these setup functions are called in this order
-        -- before setting up the servers.
         require("mason").setup()
         require("mason-lspconfig").setup()
 
         -- Declare lsp servers
-        --  If you want to override the default filetypes that your language server will attach to you can
-        --  define the property "filetypes" to the map in question.
+        -- filetypes overrides on which lsp attaches
         local servers = {
-            -- clangd = {},
-            -- gopls = {},
-            pyright = {},
+            gopls = {},
             rust_analyzer = {},
-            -- tsserver = {},
-            -- html = { filetypes = { "html", "twig", "hbs"} },
+            ts_ls = {},
+            marksman = {},
+            html = { filetypes = { "html", "twig", "hbs"} },
 
             lua_ls = {
                 Lua = {
                     workspace = { checkThirdParty = false },
                     telemetry = { enable = false },
-                    -- NOTE222: toggle below to ignore Lua_LS"s noisy `missing-fields` warnings
-                    -- diagnostics = { disable = { "missing-fields" } },
                 },
             },
         }
 
-        -- DelphiLS -
-        -- FIX:
-        require("lspconfig").delphi_ls.setup({})
-
         -- Setup neovim lua configuration
         require("neodev").setup()
 
-        -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+        -- Blink
+        local lspconfig = require('lspconfig')
+        for server, config in pairs(servers) do
+          -- passing config.capabilities to blink.cmp merges with the capabilities in your
+          -- `opts[server].capabilities, if you've defined it
+          config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+          lspconfig[server].setup(config)
+        end
 
-        -- Ensure the servers above are installed
         local mason_lspconfig = require("mason-lspconfig")
-
-        mason_lspconfig.setup({
-            ensure_installed = vim.tbl_keys(servers),
-        })
-
         mason_lspconfig.setup_handlers({
             function(server_name)
                 require("lspconfig")[server_name].setup({

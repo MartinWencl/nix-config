@@ -1,4 +1,4 @@
-{ config, pkgs, userSettings,... }:
+ { config, pkgs, userSettings,... }:
 
 {
   imports = [
@@ -16,6 +16,7 @@
     ../../usr/kitty/kitty.nix
     ../../usr/wofi/wofi.nix
     ../../usr/hyprpaper/hyprpaper.nix
+    ../../usr/hypridle/hypridle.nix
     ../../usr/qutebrowser/quteb.nix
   ];
 
@@ -39,7 +40,7 @@
     bat
     ripgrep
     fd
-    gcc
+    # gcc
     nodejs
     vscode
     go
@@ -56,8 +57,12 @@
     firefox
     pwvucontrol
     python3
+    cmake
+    tokei
+    discord
+    lmstudio
+    obsidian
 
-    libcef
 
     #TODO: Move to "gaming" profile
     prismlauncher
@@ -77,6 +82,12 @@
      EDITOR = userSettings.editor;
      TERM = userSettings.term;
   };
+  
+  home.sessionPath = [
+    "$HOME/.bin"
+  ];
+
+  home.file.".bin/lofi".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Documents/lofi/build/lofi";
 
   programs.home-manager.enable = true;
 }

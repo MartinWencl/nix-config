@@ -34,17 +34,9 @@ return {
 
         -- Keybinds groups setup
         local wk = require("which-key")
-        wk.register({
-            ["<leader>"] = {
-                n = {
-                    name = "[n]eorg",
-                },
-            },
-            ["<leader>n"] = {
-                w = {
-                    name = "[w]orkspace",
-                },
-            },
+        wk.add({
+            { "<leader>n", group = "[n]eorg" },
+            { "<leader>nw", group = "[w]orkspace" },
         })
 
         -- Workspaces

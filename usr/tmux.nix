@@ -7,7 +7,7 @@
 
   programs.tmux = {
     enable = true;
-    prefix = "C-Space";
+    prefix = "C-e";
     baseIndex = 1;
     keyMode = "vi";
 
@@ -20,6 +20,11 @@
     extraConfig = ''
     set-option -g renumber-windows on
 
+    bind-key Left select-pane -L
+    bind-key Right select-pane -R
+    bind-key Up select-pane -U
+    bind-key Down select-pane -D
+
     bind-key r command-prompt -I "rename-window %%"
     bind-key k confirm-before -p "kill session? (y/n)" kill-session
 
@@ -28,6 +33,7 @@
 
     # change selection mode keybinds
     bind-key -T copy-mode-vi v send-keys -X begin-selection
+
     bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
     bind-key -T copy-mode-vi C-v send-keys -X copy-selection-and-cance
 

@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -40,8 +41,12 @@
   i18n.extraLocaleSettings = systemSettings.extraLocaleSettings;
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [userSettings.font]; })
+    # (nerdfonts.override { fonts = [userSettings.font]; })
+    nerd-fonts.${userSettings.font}
   ];
+
+  # RGB
+  services.hardware.openrgb.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -60,6 +65,12 @@
   #   layout = "us";
   #   variant = "";
   # };
+
+  # ollama
+  services.ollama = {
+    enable = true;
+    acceleration = "rocm";
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -95,7 +106,7 @@
     pkgs.zip
     pkgs.unzip
     pkgs.curl
-];
+  ];
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
@@ -134,5 +145,5 @@
 
   system.stateVersion = "24.05"; # Did you read the comment?
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }

@@ -18,8 +18,9 @@ end
 -- adding lazy to runtimepath
 -- :h :runtime
 vim.opt.rtp:prepend(lazypath)
+vim.opt.rtp:append('~/.local/share/nvim/lazy')
 
--- Loads some basic plugins
+--TODO: Split into separate files
 local plugins = require("plugins.init_plugins")
 
 -- Set the lua/plugins/ as the import dir for additional plugins
@@ -36,5 +37,5 @@ require("keymaps")
 
 -- Load custom files
 require("custom.dek")
-require("custom.delphi")
-require("custom.terminals")
+-- require("custom.lualine_codecompaion")
+

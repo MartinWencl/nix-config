@@ -2,8 +2,8 @@
   description = "";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-24.05";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     hyprland.url = "github:hyprwm/Hyprland";
   };
@@ -37,7 +37,7 @@
         dotfilesDir = "~/.dotfiles";
         browser = "qutebrowser";
         term = "kitty";
-        font = "JetBrainsMono"; # Nerd font expected
+        font = "jetbrains-mono"; # Nerd font expected
         nerdFont = font + " Nerd Font";
         editor = "nvim";
       };

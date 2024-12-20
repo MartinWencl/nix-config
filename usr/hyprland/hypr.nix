@@ -20,11 +20,14 @@
     exec-once = [
       "waybar"
       "hyprpaper"
+      "hypridle"
       "dunst"
     ];
     
     # import theming
     source = "~/.config/hypr/mocha.conf";
+
+    monitor="DP-1,2560x1440@60,0x0,1";
 
     # Keybinds
     "$mod" = "SUPER";
