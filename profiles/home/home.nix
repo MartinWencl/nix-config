@@ -18,6 +18,7 @@
     ../../usr/hyprpaper/hyprpaper.nix
     ../../usr/hypridle/hypridle.nix
     ../../usr/qutebrowser/quteb.nix
+    ../../usr/openrgb.nix
   ];
 
   home.username = "martinw";
@@ -62,7 +63,9 @@
     discord
     lmstudio
     obsidian
-
+    rqbit
+    gojq
+    tofi
 
     #TODO: Move to "gaming" profile
     prismlauncher

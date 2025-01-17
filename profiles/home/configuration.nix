@@ -108,13 +108,6 @@
     pkgs.curl
   ];
 
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    # Add any missing dynamic libraries for unpackaged programs
-    # here, NOT in environment.systemPackages
-    xorg.libX11
-    xorg.libX11.dev
-  ];
 
   #TODO: Move into a separate "gaming" section, so it can be separated out of a work profile
   programs.steam = {
@@ -123,7 +116,17 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
-
+  
+  #TODO: needed for prismlauncher, make into nix-shell
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = [
+    pkgs.libcef 
+    pkgs.mesa
+    pkgs.libGL
+    pkgs.wayland
+    pkgs.rocmPackages.rocm-smi
+  ];
+  
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

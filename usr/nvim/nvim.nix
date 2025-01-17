@@ -16,6 +16,7 @@
     stylua
     nil
     marksman
+    rustup
 
   #   universal-ctags
   #   (pkgs.buildGoModule {

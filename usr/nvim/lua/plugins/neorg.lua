@@ -32,12 +32,12 @@ return {
             },
         })
 
-        -- Keybinds groups setup
-        local wk = require("which-key")
-        wk.add({
-            { "<leader>n", group = "[n]eorg" },
-            { "<leader>nw", group = "[w]orkspace" },
-        })
+        -- -- Keybinds groups setup
+        -- local wk = require("which-key")
+        -- wk.add({
+        --     { "<leader>n", group = "[n]eorg" },
+        --     { "<leader>nw", group = "[w]orkspace" },
+        -- })
 
         -- Workspaces
         vim.keymap.set("n", "<leader>nw", "<Cmd>Neorg workspace main<CR>", { desc = "[w]ork" })

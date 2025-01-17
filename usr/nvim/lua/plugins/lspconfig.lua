@@ -24,7 +24,7 @@ return {
             end
 
             nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-            nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+            nmap("<F3>", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
             -- TODO: Refactor code intelligence
             nmap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
@@ -57,6 +57,7 @@ return {
             rust_analyzer = {},
             ts_ls = {},
             marksman = {},
+            clangd = {},
             html = { filetypes = { "html", "twig", "hbs"} },
 
             lua_ls = {
