@@ -66,6 +66,7 @@
     rqbit
     gojq
     tofi
+    btop
 
     #TODO: Move to "gaming" profile
     prismlauncher
