@@ -78,8 +78,11 @@
       "$mod, mouse:273, resizewindow"
     ];
 
+
     input = {
-      follow_mouse = 1;
+      kb_layout = "us,cz";
+      kb_variant = ",ucw";
+      kb_options = "grp:switch,caps:swapescape";
     };
 
     env = "HYPRCURSOR_THEME,BreezeX-RosePine-Linux";

@@ -67,6 +67,11 @@
     gojq
     tofi
     btop
+    docker
+    open-webui
+
+    #HACK:
+    xclip
 
     #TODO: Move to "gaming" profile
     prismlauncher
@@ -91,7 +96,7 @@
     "$HOME/.bin"
   ];
 
-  home.file.".bin/lofi".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Documents/lofi/build/lofi";
+  # home.file.".bin/lofi".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Documents/lofi/build/lofi";
 
   programs.home-manager.enable = true;
 }

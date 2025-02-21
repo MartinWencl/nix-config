@@ -26,12 +26,23 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  # networking.networkmanager.enable = true;
+  networking.networkmanager.enable = true;
 
   #TODO: Move into a separate bluetooth module
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
+
+  services.open-webui = {
+    enable = true;
+    environment = {
+      ANONYMIZED_TELEMETRY = "False";
+      DO_NOT_TRACK = "True";
+      SCARF_NO_ANALYTICS = "True";
+      OLLAMA_API_BASE_URL = "http://127.0.0.1:11434/api";
+      OLLAMA_BASE_URL = "http://127.0.0.1:11434";
+    };
+  };
 
   # Set your time zone.
   time.timeZone = systemSettings.timezone;
@@ -68,7 +79,12 @@
 
   # ollama
   services.ollama = {
+    package = pkgs.ollama-rocm;
     enable = true;
+    environmentVariables = {
+      HCC_AMDGPU_TARGET = "gfx1101"; # used to be necessary, but doesn't seem to anymore
+    };
+    rocmOverrideGfx = "11.0.1";
     acceleration = "rocm";
   };
 
