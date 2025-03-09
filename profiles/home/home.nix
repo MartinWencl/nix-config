@@ -69,6 +69,7 @@
     btop
     docker
     open-webui
+    jdk17
 
     #HACK:
     xclip
