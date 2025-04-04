@@ -66,6 +66,7 @@ return {
                     telemetry = { enable = false },
                 },
             },
+            teal_ls = {},
         }
 
         -- Setup neovim lua configuration
@@ -73,6 +74,7 @@ return {
 
         -- Blink
         local lspconfig = require('lspconfig')
+
         for server, config in pairs(servers) do
           -- passing config.capabilities to blink.cmp merges with the capabilities in your
           -- `opts[server].capabilities, if you've defined it
