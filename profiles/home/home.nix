@@ -19,6 +19,7 @@
     ../../usr/hypridle/hypridle.nix
     ../../usr/qutebrowser/quteb.nix
     ../../usr/openrgb.nix
+    ../../usr/openwebui.nix
   ];
 
   home.username = "martinw";
