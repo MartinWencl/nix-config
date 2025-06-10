@@ -77,6 +77,10 @@
   #   layout = "us";
   #   variant = "";
   # };
+  
+  # virtualization.docker = {
+  #   enable = true;
+  # };
 
   # ollama
   services.ollama = {
@@ -123,6 +127,7 @@
     pkgs.zip
     pkgs.unzip
     pkgs.curl
+    # pkgs.docker
   ];
 
 

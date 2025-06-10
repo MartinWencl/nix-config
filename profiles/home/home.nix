@@ -67,7 +67,6 @@
     gojq
     tofi
     btop
-    docker
     open-webui
     jdk17
 
@@ -81,11 +80,6 @@
   xsession.enable = true;
   # xsession.windowManager.command = "hyprland";
   xsession.windowManager.awesome.enable = true;
-  
-
-  virtualization.docker = {
-    enable = true;
-  };
 
   nix = {
     package = pkgs.nix;
