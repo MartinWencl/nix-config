@@ -83,6 +83,10 @@
   xsession.windowManager.awesome.enable = true;
   
 
+  virtualization.docker = {
+    enable = true;
+  };
+
   nix = {
     package = pkgs.nix;
     settings.experimental-features = [ "nix-command" "flakes" ];
