@@ -17,6 +17,7 @@
     nil
     marksman
     rustup
+    dotnet-sdk_8
 
   #   universal-ctags
   #   (pkgs.buildGoModule {
