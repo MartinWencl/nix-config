@@ -58,6 +58,7 @@ return {
             ts_ls = {},
             marksman = {},
             clangd = {},
+            csharp_ls = {},
             html = { filetypes = { "html", "twig", "hbs"} },
 
             lua_ls = {
