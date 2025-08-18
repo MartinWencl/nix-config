@@ -75,6 +75,10 @@
     networkmanager-sstp
     networkmanagerapplet
 
+    spice
+    spice-gtk
+    win-spice
+
     #HACK:
     xclip
 
