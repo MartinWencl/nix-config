@@ -70,6 +70,9 @@
     open-webui
     jdk17
 
+    remmina
+    sstp
+
     #HACK:
     xclip
 

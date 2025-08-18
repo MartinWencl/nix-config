@@ -14,6 +14,37 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
 
+  # virtualisation.libvirt.enable = true;
+  # virtualisation.libvirtd.enable = true;
+  # virtualisation.libvirt.swtpm.enable = true;  # Software TPM for Windows 11
+  # 
+  # virtualisation.libvirt.pools.default.volumes.windowsDisk = {
+  #   source = null;
+  #   name = "windows11.qcow2";
+  #   capacity = 50 * 1024 * 1024 * 1024;  # 100 GiB in bytes
+  #   allocation = 10 * 1024 * 1024 * 1024;
+  #   format = "qcow2";
+  # };
+  #
+  # virtualisation.libvirt.connections."qemu:///system".domains = [
+  #   {
+  #     definition = (import <path-to-nixvirt-lib-domain-nixos-or-flake> {}).lib.domain.writeXML (
+  #       (import <path-to-nixvirt-lib-domain-nixos-or-flake> {}).lib.domain.templates.windows {
+  #         name = "Windows11VM";
+  #         uuid = "4c90ac4c-9282-4833-b1a4-2df2f9c460b0";
+  #         memory = { count = 8; unit = "GiB"; };
+  #         storage_vol = { pool = "default"; volume = "windows11.qcow2"; };
+  #         install_vol = "/path/to/windows11.iso";
+  #         bridge_name = "virbr0"; # or your bridge interface
+  #         virtio_net = true;
+  #         virtio_video = true;
+  #         virtio_drive = true;
+  #       }
+  #     ));
+  #     active = true;
+  #   }
+  # ];
+
   environment.shells = with pkgs; [ bash zsh ];
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
@@ -82,6 +113,11 @@
   #   enable = true;
   # };
 
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = ["martinw"];
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+
   # ollama
   services.ollama = {
     package = pkgs.ollama-rocm;
@@ -115,7 +151,7 @@
   users.users.${userSettings.username} = {
     isNormalUser = true;
     description = userSettings.name;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
   };
 
   nixpkgs.config.allowUnfree = true;
