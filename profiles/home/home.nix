@@ -73,6 +73,7 @@
     remmina
     sstp
     networkmanager-sstp
+    networkmanagerapplet
 
     #HACK:
     xclip
