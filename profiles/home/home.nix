@@ -53,7 +53,7 @@
     swww
     zathura
     xfce.thunar
-    steam
+    # steam
     wl-clipboard
     firefox
     pwvucontrol
