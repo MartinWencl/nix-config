@@ -37,9 +37,11 @@
         dotfilesDir = "~/.dotfiles";
         browser = "qutebrowser";
         term = "kitty";
-        font = "jetbrains-mono"; # Nerd font expected
+        font = "jetbrains-mono"; # nerd font expected
         nerdFont = font + " Nerd Font";
         editor = "nvim";
+        streamerMode = true; # hide personal details - not implemented
+        swapCapsEscape = true;
       };
 
       lib = nixpkgs.lib;

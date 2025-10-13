@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, userSettings,  ... }:
 
 {
   home.packages = with pkgs; [
@@ -78,11 +78,10 @@
       "$mod, mouse:273, resizewindow"
     ];
 
-
     input = {
       kb_layout = "us,cz";
       kb_variant = ",ucw";
-      kb_options = "grp:switch,caps:swapescape";
+      kb_options = "grp:switch" + (if userSettings.swapCapsEscape then ",caps:swapescape" else "");
     };
 
     env = "HYPRCURSOR_THEME,BreezeX-RosePine-Linux";
