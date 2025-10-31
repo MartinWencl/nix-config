@@ -166,13 +166,26 @@
     # pkgs.docker
   ];
 
-
   #TODO: Move into a separate "gaming" section, so it can be separated out of a work profile
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+
+    package = pkgs.steam.override { 
+      extraPkgs = pkgs: [
+        pkgs.jq
+        pkgs.cabextract
+        pkgs.wget
+        pkgs.git
+        pkgs.pkgsi686Linux.libpulseaudio
+        pkgs.pkgsi686Linux.freetype
+        pkgs.pkgsi686Linux.xorg.libXcursor
+        pkgs.pkgsi686Linux.xorg.libXcomposite
+        pkgs.pkgsi686Linux.xorg.libXi
+      ];
+    };
   };
   
   #TODO: needed for prismlauncher, make into nix-shell
