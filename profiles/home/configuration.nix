@@ -9,6 +9,7 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../system/nordvpn.nix
     ];
 
   # Bootloader.
@@ -165,6 +166,13 @@
     pkgs.curl
     # pkgs.docker
   ];
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/user/martinw/.dotfiles"; # sets NH_OS_FLAKE variable for you
+  };
 
   #TODO: Move into a separate "gaming" section, so it can be separated out of a work profile
   programs.steam = {
