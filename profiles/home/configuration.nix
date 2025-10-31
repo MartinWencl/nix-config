@@ -184,7 +184,9 @@
         pkgs.pkgsi686Linux.xorg.libXcursor
         pkgs.pkgsi686Linux.xorg.libXcomposite
         pkgs.pkgsi686Linux.xorg.libXi
-        # pkgs.pkgsi686Linux.xorg.libxrandr
+        pkgs.pkgsi686Linux.xorg.libXrandr
+        pkgs.pkgsi686Linux.xorg.libXfixes
+        pkgs.pkgsi686Linux.vulkan-loader
       ];
     };
   };
