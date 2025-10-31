@@ -184,6 +184,7 @@
         pkgs.pkgsi686Linux.xorg.libXcursor
         pkgs.pkgsi686Linux.xorg.libXcomposite
         pkgs.pkgsi686Linux.xorg.libXi
+        # pkgs.pkgsi686Linux.xorg.libxrandr
       ];
     };
   };
