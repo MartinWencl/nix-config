@@ -14,6 +14,9 @@ let
     find = "fd --color=auto";
     grep = "rg --color=auto";
 
+    # TODO: Move to gaming module
+    faf = "steam-run ~/source/faf-linux/run";
+
     # update = "home-manager switch --flake ~/.dotfiles";
     # update-system = "sudo nixos-rebuild switch --flake ~/.dotfiles";
     # update-flake = "nix flake update --commit-lock-file";
