@@ -41,7 +41,7 @@
         nerdFont = font + " Nerd Font";
         editor = "nvim";
         streamerMode = true; # hide personal details - not implemented
-        swapCapsEscape = true;
+        swapCapsEscape = false;
       };
 
       lib = nixpkgs.lib;
