@@ -6,9 +6,6 @@ return {
     -- Tabstop and shiftwidth
     "tpope/vim-sleuth",
 
-    -- Better lua
-    "folke/neodev.nvim",
-
     -- -- Autocompletion
     -- {
     --     "hrsh7th/nvim-cmp",

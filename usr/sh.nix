@@ -74,5 +74,4 @@ in
       enable = true;
       shellAliases = myAliases;
     };
-
 }

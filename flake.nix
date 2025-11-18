@@ -36,13 +36,14 @@
         email = "marta.wencl@gmail.com";
         dotfilesDir = "~/.dotfiles";
         browser = "qutebrowser";
-        term = "kitty";
+        term = "wt";
         font = "jetbrains-mono"; # nerd font expected
         nerdFont = font + " Nerd Font";
         editor = "nvim";
         streamerMode = true; # hide personal details - not implemented
         swapCapsEscape = true;
-        headless = false; # set to true for WSL/server environments without GUI
+        headless = true; # set to true for WSL/server environments without GUI
+        enableROCm = true;
       };
 
       lib = nixpkgs.lib;
