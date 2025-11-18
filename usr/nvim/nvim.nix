@@ -1,12 +1,10 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, lib, userSettings, ... }:
 
 {
   home.packages = with pkgs; [
     neovim
     neovim-remote
     neovide
-
-    ollama-rocm
 
     clang
     clang-tools
@@ -28,6 +26,8 @@
   #     };
   #     vendorHash = null;
   #   })
+  ] ++ lib.optionals (userSettings.enableROCm or false) [
+    ollama-rocm
   ];
   programs.neovim = {
     viAlias = true;

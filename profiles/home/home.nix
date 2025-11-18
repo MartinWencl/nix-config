@@ -1,14 +1,16 @@
- { config, pkgs, userSettings,... }:
+ { config, pkgs, lib, userSettings,... }:
 
 {
   imports = [
+    # terminal only
     ../../usr/sh.nix
-    ../../usr/alacritty/alacritty.nix
     ../../usr/starship.nix
     ../../usr/nvim/nvim.nix
     ../../usr/autin.nix
     ../../usr/zoxide.nix
     ../../usr/tmux.nix
+  ] ++ lib.optionals (!userSettings.headless) [
+    ../../usr/alacritty/alacritty.nix
     ../../usr/rofi.nix
     ../../usr/awesome/awesome.nix
     ../../usr/hyprland/hypr.nix
@@ -36,6 +38,7 @@
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   home.packages = with pkgs; [
+    # terminal only
     zsh
     eza
     bat
@@ -43,12 +46,19 @@
     fd
     # gcc
     nodejs
-    vscode
     go
-    alacritty
     rustup
     fzf
     yazi
+    python3
+    cmake
+    tokei
+    gojq
+    btop
+    jdk17
+  ] ++ lib.optionals (!userSettings.headless) [
+    vscode
+    alacritty
     kitty
     swww
     zathura
@@ -57,18 +67,12 @@
     wl-clipboard
     firefox
     pwvucontrol
-    python3
-    cmake
-    tokei
     discord
     lmstudio
     obsidian
     rqbit
-    gojq
     tofi
-    btop
     open-webui
-    jdk17
 
     remmina
     sstp
@@ -86,9 +90,9 @@
     prismlauncher
   ];
 
-  xsession.enable = true;
+  xsession.enable = !userSettings.headless;
   # xsession.windowManager.command = "hyprland";
-  xsession.windowManager.awesome.enable = true;
+  xsession.windowManager.awesome.enable = !userSettings.headless;
 
   nix = {
     package = pkgs.nix;

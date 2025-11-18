@@ -42,6 +42,7 @@
         editor = "nvim";
         streamerMode = true; # hide personal details - not implemented
         swapCapsEscape = true;
+        headless = false; # set to true for WSL/server environments without GUI
       };
 
       lib = nixpkgs.lib;
