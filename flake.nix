@@ -36,7 +36,7 @@
         email = "marta.wencl@gmail.com";
         dotfilesDir = "~/.dotfiles";
         browser = "qutebrowser";
-        term = "wt";
+        term = "kitty";
         font = "jetbrains-mono"; # nerd font expected
         nerdFont = font + " Nerd Font";
         editor = "nvim";
