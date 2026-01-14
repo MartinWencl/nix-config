@@ -36,17 +36,19 @@ return {
             capabilities = require('blink.cmp').get_lsp_capabilities(),
         })
 
-        -- Enable all configured servers (configs are in lsp/*.lua)
+        -- Enable all configured servers
+        -- Configs come from nvim-lspconfig + overrides in after/lsp/*.lua
         vim.lsp.enable({
             'gopls',
             'rust_analyzer',
             'ts_ls',
             'marksman',
             'clangd',
-            'csharp_ls',
+            'omnisharp',
             'html',
             'lua_ls',
             'teal_ls',
+            'nil_ls',
         })
     end,
 }

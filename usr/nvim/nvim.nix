@@ -15,7 +15,10 @@
     nil
     marksman
     rustup
-    csharp-ls
+    gopls
+    nodePackages.typescript-language-server
+    vscode-langservers-extracted
+    omnisharp-roslyn
 
   #   universal-ctags
   #   (pkgs.buildGoModule {

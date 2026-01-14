@@ -19,8 +19,6 @@ return {
         sync_install = false,
         -- List of parsers to ignore installing
         ignore_install = {},
-        -- You can specify additional Treesitter modules here: -- For example: -- playground = {--enable = true,-- },
-        modules = {},
         highlight = { enable = true },
         indent = { enable = true },
         incremental_selection = {
