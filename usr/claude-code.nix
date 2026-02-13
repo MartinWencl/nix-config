@@ -1,10 +1,21 @@
 { config, pkgs, userSettings, ... }:
 
 {
-  home.packages = [
-    pkgs.claude-code
-    pkgs.mcp-nixos
-  ];
+  programs.claude-code = {
+    enable = true;
 
-  # TODO: Add Claude Code configuration here (MCP servers, settings, etc.)
+    mcpServers = {
+      mcp-nixos = {
+        command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+        args = [ "run" ];
+      };
+      lsp-csharp = {
+        command = "${pkgs.mcp-language-server}/bin/mcp-language-server";
+        args = [
+          "--workspace" "/home/martinw/source/server"
+          "--lsp" "${pkgs.csharp-ls}/bin/csharp-ls"
+        ];
+      };
+    };
+  };
 }
