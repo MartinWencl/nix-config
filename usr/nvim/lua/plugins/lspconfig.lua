@@ -9,25 +9,30 @@ return {
     },
     config = function()
         -- LSP keymaps via LspAttach autocmd
+        -- Using Neovim 0.11 default mappings (gr*, gO, K)
         vim.api.nvim_create_autocmd('LspAttach', {
             group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
             callback = function(ev)
                 local bufnr = ev.buf
 
-                vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP: Rename" })
-                vim.keymap.set("n", "<F3>", vim.lsp.buf.code_action, { buffer = bufnr, desc = "LSP: Code Action" })
+                -- Neovim 0.11 default mappings
+                vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP: Rename" })
+                vim.keymap.set("n", "gra", vim.lsp.buf.code_action, { buffer = bufnr, desc = "LSP: Code Action" })
+                vim.keymap.set("n", "grr", require("telescope.builtin").lsp_references, { buffer = bufnr, desc = "LSP: References" })
+                vim.keymap.set("n", "gri", require("telescope.builtin").lsp_implementations, { buffer = bufnr, desc = "LSP: Implementation" })
+                vim.keymap.set("n", "grt", require("telescope.builtin").lsp_type_definitions, { buffer = bufnr, desc = "LSP: Type Definition" })
+                vim.keymap.set("n", "gO", require("telescope.builtin").lsp_document_symbols, { buffer = bufnr, desc = "LSP: Document Symbols" })
 
+                -- Navigation (telescope integration)
                 vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, { buffer = bufnr, desc = "LSP: Go to Definition" })
-                vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, { buffer = bufnr, desc = "LSP: Find References" })
-                vim.keymap.set("n", "gI", require("telescope.builtin").lsp_implementations, { buffer = bufnr, desc = "LSP: Go to Implementation" })
-                vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "LSP: Type Definition" })
-                vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, { buffer = bufnr, desc = "LSP: Document Symbols" })
-                vim.keymap.set("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, { buffer = bufnr, desc = "LSP: Workspace Symbols" })
+                vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "LSP: Go to Declaration" })
 
+                -- Hover and signature help
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP: Hover" })
                 vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "LSP: Signature Help" })
 
-                vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "LSP: Go to Declaration" })
+                -- Workspace symbols
+                vim.keymap.set("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, { buffer = bufnr, desc = "LSP: Workspace Symbols" })
             end,
         })
 

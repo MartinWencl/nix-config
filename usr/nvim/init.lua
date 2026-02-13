@@ -35,7 +35,3 @@ require("lazy").setup(plugins, {
 -- Load basic keymaps not related to specific plugins
 require("keymaps")
 
--- Load custom files
-require("custom.dek")
--- require("custom.lualine_codecompaion")
-
