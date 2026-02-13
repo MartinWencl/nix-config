@@ -9,6 +9,7 @@
     ../../usr/autin.nix
     ../../usr/zoxide.nix
     ../../usr/tmux.nix
+    ../../usr/claude-code.nix
   ] ++ lib.optionals (!userSettings.headless) [
     ../../usr/alacritty/alacritty.nix
     ../../usr/rofi.nix
