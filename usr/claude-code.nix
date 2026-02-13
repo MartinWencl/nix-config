@@ -20,7 +20,7 @@ in
         command = "${pkgs.mcp-language-server}/bin/mcp-language-server";
         args = [
           "--workspace" "/home/martinw/.dotfiles"
-          "--lsp" "${pkgs.nil}/bin/nil"
+          "--lsp" "${pkgs.nixd}/bin/nixd"
         ];
       };
       lsp-csharp = {
