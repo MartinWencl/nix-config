@@ -1,5 +1,5 @@
 
-{ config, pkgs, ... }:
+{ config, pkgs, userSettings, ... }:
 let
   myAliases = {
     ls = "eza --group-directories-first --icons";
@@ -23,11 +23,16 @@ let
 
     update = ''
     cd ~/.dotfiles && \
-    if home-manager switch --flake ~/.dotfiles; then
+    if grep -qi microsoft /proc/version 2>/dev/null; then
+      HM_CONFIG="${userSettings.username}@work-wsl"
+    else
+      HM_CONFIG="${userSettings.username}@desktop"
+    fi && \
+    if home-manager switch --flake ~/.dotfiles#$HM_CONFIG; then
       drvpath=$(home-manager generations | head -n1 | grep -oP "/nix/store/[a-z0-9]+-home-manager-generation" || echo "")
       drvhash=$(echo "$drvpath" | grep -oP "[a-z0-9]+" | head -n1)
       git add . && \
-      git commit -m "home-manager: update to derivation ${drvhash:0:7}" && \
+      git commit -m "home-manager: update to derivation ''${drvhash:0:7}" && \
       echo "Successfully updated and committed home-manager changes"
     else
       echo "home-manager update failed, no changes committed"
@@ -42,7 +47,7 @@ let
       drvhash=$(echo "$system_profile" | grep -oP "[a-z0-9]+" | head -n1)
       hostname=$(hostname)
       git add . && \
-      git commit -m "nixos($hostname): update to derivation ${drvhash:0:7}" && \
+      git commit -m "nixos($hostname): update to derivation ''${drvhash:0:7}" && \
       echo "Successfully updated and committed NixOS changes"
     else
       echo "NixOS update failed, no changes committed"
@@ -55,7 +60,7 @@ let
     if nix flake update; then
       hash=$(grep -A1 "lastModified" flake.lock | grep "narHash" | grep -oP 'sha256-[A-Za-z0-9+/=]+')
       git add flake.lock && \
-      git commit -m "flake: update inputs to $hash" && \
+      git commit -m "flake: update inputs to ''${hash}" && \
       echo "Successfully updated and committed flake lock file"
     else
       echo "Flake update failed, no changes committed"

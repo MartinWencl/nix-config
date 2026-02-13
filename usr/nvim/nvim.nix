@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     neovim
     neovim-remote
-    neovide
 
     clang
     clang-tools
@@ -29,6 +28,8 @@
   #     };
   #     vendorHash = null;
   #   })
+  ] ++ lib.optionals (!(userSettings.headless or false)) [
+    neovide
   ] ++ lib.optionals (userSettings.enableROCm or false) [
     ollama-rocm
   ];

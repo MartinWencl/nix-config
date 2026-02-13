@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  userSettings,
   ...
 }: let
   nordVpnPkg = pkgs.callPackage ({
@@ -123,7 +124,7 @@ in
       environment.systemPackages = [nordVpnPkg];
 
       users.groups.nordvpn = {};
-      users.groups.nordvpn.members = ["myypo"];
+      users.groups.nordvpn.members = [userSettings.username];
       systemd = {
         services.nordvpn = {
           description = "NordVPN daemon.";

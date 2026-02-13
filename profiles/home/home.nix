@@ -24,8 +24,8 @@
     ../../usr/openrgb.nix
   ];
 
-  home.username = "martinw";
-  home.homeDirectory = "/home/martinw";
+  home.username = userSettings.username;
+  home.homeDirectory = "/home/${userSettings.username}";
 
   nixpkgs.config.allowUnfree = true;
 

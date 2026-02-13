@@ -171,7 +171,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/user/martinw/.dotfiles"; # sets NH_OS_FLAKE variable for you
+    flake = "/home/${userSettings.username}/.dotfiles"; # sets NH_OS_FLAKE variable for you
   };
 
   #TODO: Move into a separate "gaming" section, so it can be separated out of a work profile

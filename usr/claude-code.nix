@@ -16,13 +16,6 @@ in
         command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
         args = [ "run" ];
       };
-      lsp-nix = {
-        command = "${pkgs.mcp-language-server}/bin/mcp-language-server";
-        args = [
-          "--workspace" "/home/martinw/.dotfiles"
-          "--lsp" "${pkgs.nixd}/bin/nixd"
-        ];
-      };
       lsp-csharp = {
         command = "${pkgs.mcp-language-server}/bin/mcp-language-server";
         args = [

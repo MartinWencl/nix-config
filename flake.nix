@@ -42,12 +42,19 @@
         editor = "nvim";
         streamerMode = true; # hide personal details - not implemented
         swapCapsEscape = true;
-        headless = true; # set to true for WSL/server environments without GUI
-        enableROCm = true;
       };
 
       lib = nixpkgs.lib;
       pkgs = nixpkgs.legacyPackages.${systemSettings.system};
+
+      mkHome = { userSettingsOverrides ? {}, extraModules ? [] }:
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./profiles/home/home.nix ] ++ extraModules;
+          extraSpecialArgs = {
+            userSettings = userSettings // userSettingsOverrides;
+          };
+        };
 
     in {
       nixosConfigurations = {
@@ -63,14 +70,13 @@
       };
 
       homeConfigurations = {
-        martinw = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [./profiles/home/home.nix];
-
-          extraSpecialArgs = {
-            inherit userSettings;
-          };
-        }; 
+        "martinw@desktop" = mkHome {
+          userSettingsOverrides = { headless = false; enableROCm = true; };
+        };
+        "martinw@work-wsl" = mkHome {
+          userSettingsOverrides = { headless = true; enableROCm = false; };
+          extraModules = [ ./profiles/work/wsl-config.nix ];
+        };
+      };
     };
-  };  
 }
