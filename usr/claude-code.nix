@@ -16,8 +16,8 @@
           "--lsp" "${pkgs.csharp-ls}/bin/csharp-ls"
         ];
         env = {
-          DOTNET_ROOT = "${pkgs.dotnet-sdk_10}/share/dotnet";
-          PATH = "${pkgs.dotnet-sdk_10}/bin:${pkgs.dotnet-sdk_8}/bin";
+          DOTNET_ROOT = "${pkgs.dotnet-sdk_8}/share/dotnet";
+          PATH = "${pkgs.dotnet-sdk_8}/bin";
         };
       };
     };
