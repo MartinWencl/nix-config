@@ -15,6 +15,9 @@
           "--workspace" "/home/martinw/source/server"
           "--lsp" "${pkgs.csharp-ls}/bin/csharp-ls"
         ];
+        env = {
+          PATH = "${pkgs.dotnet-sdk_8}/bin";
+        };
       };
     };
   };
