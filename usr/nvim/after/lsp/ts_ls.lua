@@ -10,6 +10,7 @@ if not store_path then
 end
 
 return {
+    filetypes = { 'typescript', 'javascript', 'typescriptreact', 'javascriptreact', 'vue' },
     init_options = {
         plugins = {
             {
