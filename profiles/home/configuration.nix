@@ -59,6 +59,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
 
   #TODO: Move into a separate bluetooth module
   hardware.bluetooth.enable = true; # enables support for Bluetooth
