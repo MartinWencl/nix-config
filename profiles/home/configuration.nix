@@ -111,9 +111,7 @@
   #   variant = "";
   # };
   
-  # virtualization.docker = {
-  #   enable = true;
-  # };
+  virtualisation.docker.enable = true;
 
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = ["martinw"];
@@ -155,7 +153,7 @@
   users.users.${userSettings.username} = {
     isNormalUser = true;
     description = userSettings.name;
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -167,7 +165,8 @@
     pkgs.zip
     pkgs.unzip
     pkgs.curl
-    # pkgs.docker
+    pkgs.docker-compose
+    pkgs.lazydocker
   ];
 
   programs.nh = {
