@@ -66,18 +66,6 @@
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
 
-  services.open-webui = {
-    enable = true;
-    environment = {
-      ANONYMIZED_TELEMETRY = "False";
-      DO_NOT_TRACK = "True";
-      SCARF_NO_ANALYTICS = "True";
-      OLLAMA_API_BASE_URL = "http://127.0.0.1:11434/api";
-      OLLAMA_BASE_URL = "http://127.0.0.1:11434";
-      WEBUI_AUTH = "False";
-    };
-  };
-
   # Set your time zone.
   time.timeZone = systemSettings.timezone;
 
@@ -117,17 +105,6 @@
   users.groups.libvirtd.members = ["martinw"];
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
-
-  # ollama
-  services.ollama = {
-    package = pkgs.ollama-rocm;
-    enable = true;
-    environmentVariables = {
-      HCC_AMDGPU_TARGET = "gfx1101"; # used to be necessary, but doesn't seem to anymore
-    };
-    rocmOverrideGfx = "11.0.1";
-    acceleration = "rocm";
-  };
 
   hardware.keyboard.qmk.enable = true;
 
@@ -204,7 +181,6 @@
   #TODO: needed for prismlauncher, make into nix-shell
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = [
-    pkgs.libcef 
     pkgs.mesa
     pkgs.libGL
     pkgs.wayland
