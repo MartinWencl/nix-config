@@ -44,6 +44,25 @@ return {
             capabilities = require('blink.cmp').get_lsp_capabilities(),
         })
 
+        -- Vue LS: disable hybrid mode so it handles TS itself
+        local tsc = vim.fn.exepath('tsc')
+        if tsc ~= '' then
+            local resolved = vim.fn.resolve(tsc)
+            local store_path = resolved:match('(.+)/bin/tsc$')
+            if store_path then
+                vim.lsp.config('vue_ls', {
+                    init_options = {
+                        vue = {
+                            hybridMode = false,
+                        },
+                        typescript = {
+                            tsdk = store_path .. '/lib/node_modules/typescript/lib',
+                        },
+                    },
+                })
+            end
+        end
+
         -- Enable all configured servers
         -- Configs come from nvim-lspconfig + overrides in after/lsp/*.lua
         vim.lsp.enable({
