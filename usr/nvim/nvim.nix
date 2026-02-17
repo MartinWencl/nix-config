@@ -1,12 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, lib, userSettings, ... }:
 
 {
   home.packages = with pkgs; [
     neovim
     neovim-remote
-    neovide
-
-    ollama-rocm
 
     clang
     clang-tools
@@ -17,7 +14,10 @@
     nil
     marksman
     rustup
-    csharp-ls
+    gopls
+    nodePackages.typescript-language-server
+    vscode-langservers-extracted
+    omnisharp-roslyn
 
   #   universal-ctags
   #   (pkgs.buildGoModule {
@@ -28,6 +28,10 @@
   #     };
   #     vendorHash = null;
   #   })
+  ] ++ lib.optionals (!(userSettings.headless or false)) [
+    neovide
+  ] ++ lib.optionals (userSettings.enableROCm or false) [
+    ollama-rocm
   ];
   programs.neovim = {
     viAlias = true;

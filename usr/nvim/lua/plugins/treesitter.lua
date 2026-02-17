@@ -6,8 +6,9 @@ return {
   build = ":TSUpdate",
   config = function()
     -- [[ Configure Treesitter ]]
+    -- Neovim 0.11+ has much better built-in treesitter support
+    -- However, nvim-treesitter-textobjects still provides valuable text objects
     -- See `:help nvim-treesitter`
-    -- Defer Treesitter setup after first render to improve startup time of "nvim {filename}"
     vim.defer_fn(function()
       require("nvim-treesitter.configs").setup {
         -- Add languages to be installed here that you want installed for treesitter
@@ -19,8 +20,6 @@ return {
         sync_install = false,
         -- List of parsers to ignore installing
         ignore_install = {},
-        -- You can specify additional Treesitter modules here: -- For example: -- playground = {--enable = true,-- },
-        modules = {},
         highlight = { enable = true },
         indent = { enable = true },
         incremental_selection = {

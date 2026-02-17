@@ -36,7 +36,7 @@
         email = "marta.wencl@gmail.com";
         dotfilesDir = "~/.dotfiles";
         browser = "qutebrowser";
-        term = "kitty";
+        term = "xterm-256color";
         font = "jetbrains-mono"; # nerd font expected
         nerdFont = font + " Nerd Font";
         editor = "nvim";
@@ -46,6 +46,15 @@
 
       lib = nixpkgs.lib;
       pkgs = nixpkgs.legacyPackages.${systemSettings.system};
+
+      mkHome = { userSettingsOverrides ? {}, extraModules ? [] }:
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./profiles/home/home.nix ] ++ extraModules;
+          extraSpecialArgs = {
+            userSettings = userSettings // userSettingsOverrides;
+          };
+        };
 
     in {
       nixosConfigurations = {
@@ -61,14 +70,13 @@
       };
 
       homeConfigurations = {
-        martinw = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [./profiles/home/home.nix];
-
-          extraSpecialArgs = {
-            inherit userSettings;
-          };
-        }; 
+        "martinw@desktop" = mkHome {
+          userSettingsOverrides = { headless = false; enableROCm = true; };
+        };
+        "martinw@work-wsl" = mkHome {
+          userSettingsOverrides = { headless = true; enableROCm = false; };
+          extraModules = [ ./profiles/work/wsl-config.nix ];
+        };
+      };
     };
-  };  
 }
