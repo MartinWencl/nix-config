@@ -81,6 +81,7 @@ return {
             -- Text object
             map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "select git hunk" })
         end,
+        },
     },
 
     -- Set lualine as statusline
