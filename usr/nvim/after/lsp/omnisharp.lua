@@ -1,14 +1,8 @@
+local util = require('lspconfig.util')
+
+-- Only override root_dir; rest merges from nvim-lspconfig base config
 return {
-    cmd = {
-        'OmniSharp',
-        '-z',
-        '--hostPID', tostring(vim.fn.getpid()),
-        'DotNet:enablePackageRestore=false',
-        '--encoding', 'utf-8',
-        '--languageserver',
-    },
     root_dir = function(bufnr, on_dir)
-        local util = require('lspconfig.util')
         local fname = vim.api.nvim_buf_get_name(bufnr)
 
         -- First, try to find a .sln file by searching upward
@@ -28,6 +22,6 @@ return {
         end
 
         -- Fall back to .csproj as project root
-        on_dir(util.root_pattern('*.csproj')(fname) or git_root)
+        on_dir(util.root_pattern('*.csproj', 'omnisharp.json', 'function.json')(fname) or git_root)
     end,
 }
