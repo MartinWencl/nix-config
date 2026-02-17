@@ -31,7 +31,6 @@
   ] ++ lib.optionals (!(userSettings.headless or false)) [
     neovide
   ] ++ lib.optionals (userSettings.enableROCm or false) [
-    ollama-rocm
   ];
   programs.neovim = {
     viAlias = true;
