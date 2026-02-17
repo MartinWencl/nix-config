@@ -15,6 +15,7 @@
     marksman
     rustup
     gopls
+    typescript
     nodePackages.typescript-language-server
     vue-language-server
     vscode-langservers-extracted

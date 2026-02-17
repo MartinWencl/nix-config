@@ -63,7 +63,7 @@
     kitty
     swww
     zathura
-    xfce.thunar
+    thunar
     # steam
     wl-clipboard
     firefox
