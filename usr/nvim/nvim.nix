@@ -16,6 +16,7 @@
     rustup
     gopls
     nodePackages.typescript-language-server
+    vue-language-server
     vscode-langservers-extracted
     omnisharp-roslyn
 

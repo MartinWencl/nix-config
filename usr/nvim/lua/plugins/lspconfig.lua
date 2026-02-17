@@ -50,6 +50,7 @@ return {
             'gopls',
             'rust_analyzer',
             'ts_ls',
+            'volar',
             'marksman',
             'clangd',
             'omnisharp',
